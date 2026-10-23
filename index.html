@@ -71,15 +71,16 @@
 <div class="ok" id="fok" hidden><h3>Merci, votre demande est bien envoyée.</h3><p>On vous recontacte très vite pour convenir d'un créneau.</p></div>
 </div></section>
 <script>
-(function(){var f=document.getElementById('demo-form'),b=document.getElementById('fbtn'),e=document.getElementById('ferr'),ok=document.getElementById('fok');
+(function(){var FORMSPREE_ID='FORMSPREE_ID_A_DEFINIR';var f=document.getElementById('demo-form'),b=document.getElementById('fbtn'),e=document.getElementById('ferr'),ok=document.getElementById('fok');
 f.addEventListener('submit',function(ev){ev.preventDefault();e.hidden=true;
 if(!f.checkValidity()){e.textContent='Merci de remplir les champs obligatoires (*) avec une adresse e-mail valide et de cocher la case de consentement.';e.hidden=false;f.reportValidity&&f.reportValidity();return}
 if(f._honey.value)return;
 var d={};new FormData(f).forEach(function(v,k){if(k!=='_honey')d[k]=v});
-d._subject='Demande de démo PicoTrack';d._template='table';d._captcha='false';d._replyto=d.email;
+d._subject='Demande de démo PicoTrack';d._replyto=d.email;
 b.disabled=true;b.textContent='Envoi en cours…';
-fetch('https://formsubmit.co/ajax/90bf777ff244d337291e3cd4bde98dd8',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)})
-.then(function(r){return r.json().then(function(j){if(!r.ok||String(j.success)!=='true')throw 0})})
+if(FORMSPREE_ID.indexOf('A_DEFINIR')>-1){e.textContent="L'envoi n'a pas abouti. Écrivez-nous directement à picotfr46400@gmail.com.";e.hidden=false;b.disabled=false;b.textContent='Envoyer ma demande';return}
+fetch('https://formspree.io/f/'+FORMSPREE_ID,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)})
+.then(function(r){return r.json().then(function(j){if(!r.ok||j.ok===false||j.errors)throw 0})})
 .then(function(){f.hidden=true;ok.hidden=false;ok.scrollIntoView({behavior:'smooth',block:'center'})})
 .catch(function(){e.textContent="L'envoi n'a pas abouti. Réessayez dans un instant, ou écrivez-nous directement à picotfr46400@gmail.com.";e.hidden=false;b.disabled=false;b.textContent='Envoyer ma demande'})})})();
 </script>
@@ -88,6 +89,6 @@ fetch('https://formsubmit.co/ajax/90bf777ff244d337291e3cd4bde98dd8',{method:'POS
 <details id="mentions"><summary style="cursor:pointer">Mentions légales</summary>
 <p>Éditeur : Clément Picot, particulier, éditeur non professionnel. Contact : <a href="mailto:picotfr46400@gmail.com" style="color:#fff">picotfr46400@gmail.com</a>. Conformément à l'article 6, III, 2 de la loi n° 2004-575 du 21 juin 2004 (LCEN), l'éditeur non professionnel a choisi de ne pas publier son adresse personnelle ; ses coordonnées ont été communiquées à l'hébergeur.</p>
 <p>Hébergeur : Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis.</p>
-<p>Données personnelles : ce site n'utilise aucun cookie. Les informations saisies dans le formulaire de demande de démo sont transmises par le service FormSubmit à l'adresse picotfr46400@gmail.com et servent uniquement à répondre à votre demande. Elles sont conservées au maximum 3 ans après le dernier contact de votre part, puis supprimées. Vous pouvez demander à tout moment l'accès, la rectification ou la suppression de vos données en écrivant à picotfr46400@gmail.com.</p></details>
+<p>Données personnelles : ce site n'utilise aucun cookie. Les informations saisies dans le formulaire de demande de démo sont transmises par le service Formspree (Formspree Inc., hébergé aux États-Unis, encadré par des clauses contractuelles types) à l'adresse picotfr46400@gmail.com et servent uniquement à répondre à votre demande. Elles sont conservées au maximum 3 ans après le dernier contact de votre part, puis supprimées. Vous pouvez demander à tout moment l'accès, la rectification ou la suppression de vos données en écrivant à picotfr46400@gmail.com.</p></details>
 <p>© 2026 PicoTrack</p></div></footer>
 </body></html>
