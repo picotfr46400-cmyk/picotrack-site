@@ -78,7 +78,7 @@ if(f._honey.value)return;
 var d={};new FormData(f).forEach(function(v,k){if(k!=='_honey')d[k]=v});
 d._subject='Demande de démo PicoTrack';d._template='table';d._captcha='false';d._replyto=d.email;
 b.disabled=true;b.textContent='Envoi en cours…';
-fetch('https://formsubmit.co/ajax/picotfr46400@gmail.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)})
+fetch('https://formsubmit.co/ajax/90bf777ff244d337291e3cd4bde98dd8',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)})
 .then(function(r){return r.json().then(function(j){if(!r.ok||String(j.success)!=='true')throw 0})})
 .then(function(){f.hidden=true;ok.hidden=false;ok.scrollIntoView({behavior:'smooth',block:'center'})})
 .catch(function(){e.textContent="L'envoi n'a pas abouti. Réessayez dans un instant, ou écrivez-nous directement à picotfr46400@gmail.com.";e.hidden=false;b.disabled=false;b.textContent='Envoyer ma demande'})})})();
