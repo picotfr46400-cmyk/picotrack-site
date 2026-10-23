@@ -1,14 +1,15 @@
 <!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>PicoTrack : vos contrôles terrain, traçables et prêts pour l'audit</title>
 <meta name="description" content="PicoTrack remplace le papier et Excel pour vos contrôles terrain : formulaires sur tablette même hors ligne, photos, GPS, signature, workflows, export PDF. Base de données dédiée à chaque client.">
+<link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:type" content="website"><meta property="og:url" content="https://decouvrir.picotrack.fr/"><meta property="og:title" content="PicoTrack : vos contrôles terrain, traçables et prêts pour l'audit"><meta property="og:description" content="Formulaires sur tablette même hors ligne, photos, GPS, signature, workflows, export PDF. Base de données dédiée à chaque client."><meta property="og:image" content="https://decouvrir.picotrack.fr/assets/og-image.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="assets/style.css"></head><body>
-<header class="top"><div class="w"><a class="logo" href="#">Pico<span>Track</span></a>
-<nav><a href="#fonctions">Fonctions</a><a href="#captures">Captures</a><a href="#tarifs">Tarifs</a><a class="btn" href="mailto:picotfr46400@gmail.com?subject=Demande%20de%20d%C3%A9mo%20PicoTrack">Demander une démo</a></nav></div></header>
 
 <div class="hero"><div class="w"><div>
+<img class="brand" src="assets/logo.webp" alt="PicoTrack" width="260" height="70">
 <h1>Vos contrôles terrain, traçables et prêts pour l'audit. Sans papier.</h1>
 <p class="lead">PicoTrack est un logiciel de saisie terrain et de suivi pour les PME qui ont des équipes sur le terrain : organismes de formation et Qualiopi, contrôle et inspection, maintenance et SAV multi-sites, services techniques, aide à domicile, agroalimentaire et logistique.</p>
-<div class="ctas"><a class="btn" href="mailto:picotfr46400@gmail.com?subject=Demande%20de%20d%C3%A9mo%20PicoTrack">Demander une démo</a><a class="btn alt" href="#pilote">Pilote gratuit d'1 mois</a></div></div>
+<div class="ctas"><a class="btn" href="#demo">Demander une démo</a><a class="btn alt" href="#pilote">Pilote gratuit d'1 mois</a></div></div>
 <img class="shot" src="assets/1-saisie-layout-groupe.webp" alt="Écran de saisie d'un formulaire PicoTrack"></div></div>
 
 <section><div class="w"><h2>Le problème</h2>
@@ -52,13 +53,40 @@
 <ul><li>1 mois gratuit, sans engagement</li><li>Jusqu'à 3 licences</li><li>Sur votre propre base de données dédiée</li>
 <li>La mise en service (490 € HT) n'est facturée qu'à la signature</li><li>Un appel de 20 minutes en fin de mois pour décider ensemble</li>
 <li>Sans signature : rien n'est facturé, vos données vous sont restituées puis supprimées sous 30 jours</li></ul>
-<a class="btn" href="mailto:picotfr46400@gmail.com?subject=Demande%20de%20d%C3%A9mo%20PicoTrack">Demander une démo</a></div></div></section>
+<a class="btn" href="#demo">Demander une démo</a></div></div></section>
 
-<footer><div class="w">
+<section id="demo"><div class="w narrow"><h2>Demander une démo</h2>
+<p class="lead">Dites-nous en quelques mots ce que vous contrôlez sur le terrain. On vous recontacte très vite pour une démo de 15 minutes.</p>
+<form id="demo-form" novalidate>
+<div class="row"><label>Nom *<input name="Nom" required autocomplete="name"></label><label>Entreprise *<input name="Entreprise" required autocomplete="organization"></label></div>
+<div class="row"><label>Fonction<input name="Fonction" autocomplete="organization-title"></label><label>Nombre d'utilisateurs terrain *<select name="Utilisateurs terrain" required><option value="">Choisir</option><option>1 à 3</option><option>4 à 10</option><option>11 à 30</option><option>Plus de 30</option><option>Je ne sais pas encore</option></select></label></div>
+<div class="row"><label>E-mail professionnel *<input type="email" name="email" required autocomplete="email"></label><label>Téléphone<input type="tel" name="Téléphone" autocomplete="tel"></label></div>
+<label>Votre besoin *<textarea name="Besoin" rows="4" required placeholder="Ex. : contrôles de sécurité sur 5 sites, aujourd'hui sur papier"></textarea></label>
+<input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+<label class="chk"><input type="checkbox" name="Consentement RGPD" value="oui" required> J'accepte que mes informations soient utilisées pour me recontacter au sujet de ma demande (voir les mentions légales).</label>
+<p class="ferr" id="ferr" role="alert" hidden></p>
+<button class="btn" type="submit" id="fbtn">Envoyer ma demande</button>
+</form>
+<div class="ok" id="fok" hidden><h3>Merci, votre demande est bien envoyée.</h3><p>On vous recontacte très vite pour convenir d'un créneau.</p></div>
+</div></section>
+<script>
+(function(){var f=document.getElementById('demo-form'),b=document.getElementById('fbtn'),e=document.getElementById('ferr'),ok=document.getElementById('fok');
+f.addEventListener('submit',function(ev){ev.preventDefault();e.hidden=true;
+if(!f.checkValidity()){e.textContent='Merci de remplir les champs obligatoires (*) avec une adresse e-mail valide et de cocher la case de consentement.';e.hidden=false;f.reportValidity&&f.reportValidity();return}
+if(f._honey.value)return;
+var d={};new FormData(f).forEach(function(v,k){if(k!=='_honey')d[k]=v});
+d._subject='Demande de démo PicoTrack';d._template='table';d._captcha='false';d._replyto=d.email;
+b.disabled=true;b.textContent='Envoi en cours…';
+fetch('https://formsubmit.co/ajax/picotfr46400@gmail.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)})
+.then(function(r){return r.json().then(function(j){if(!r.ok||String(j.success)!=='true')throw 0})})
+.then(function(){f.hidden=true;ok.hidden=false;ok.scrollIntoView({behavior:'smooth',block:'center'})})
+.catch(function(){e.textContent="L'envoi n'a pas abouti. Réessayez dans un instant, ou écrivez-nous directement à picotfr46400@gmail.com.";e.hidden=false;b.disabled=false;b.textContent='Envoyer ma demande'})})})();
+</script>
+<footer><div class="w"><p class="fbrand"><img src="assets/icon-96.png" alt="" width="32" height="32"> PicoTrack</p>
 <p>Contact : <a href="mailto:picotfr46400@gmail.com" style="color:#fff">picotfr46400@gmail.com</a></p>
 <details id="mentions"><summary style="cursor:pointer">Mentions légales</summary>
 <p>Éditeur : Clément Picot, particulier, éditeur non professionnel. Contact : <a href="mailto:picotfr46400@gmail.com" style="color:#fff">picotfr46400@gmail.com</a>. Conformément à l'article 6, III, 2 de la loi n° 2004-575 du 21 juin 2004 (LCEN), l'éditeur non professionnel a choisi de ne pas publier son adresse personnelle ; ses coordonnées ont été communiquées à l'hébergeur.</p>
 <p>Hébergeur : Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis.</p>
-<p>Données personnelles : ce site n'utilise ni cookie ni formulaire. Les e-mails reçus via le lien de contact servent uniquement à répondre à votre demande.</p></details>
+<p>Données personnelles : ce site n'utilise aucun cookie. Les informations saisies dans le formulaire de demande de démo sont transmises par le service FormSubmit à l'adresse picotfr46400@gmail.com et servent uniquement à répondre à votre demande. Elles sont conservées au maximum 3 ans après le dernier contact de votre part, puis supprimées. Vous pouvez demander à tout moment l'accès, la rectification ou la suppression de vos données en écrivant à picotfr46400@gmail.com.</p></details>
 <p>© 2026 PicoTrack</p></div></footer>
 </body></html>
